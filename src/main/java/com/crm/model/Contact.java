@@ -6,6 +6,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(description="All details about the user") 
 @Entity
 @Table(name="contact")
 public class Contact {
@@ -14,9 +18,12 @@ public class Contact {
 	@GeneratedValue
 	public int id;
 	
-	@Size(min=4)
+	
+	@Size(min=5, message="Name should have atleast 5 characters")  
+	@ApiModelProperty(notes="name should have atleast 5 characters")  
 	public String firstName;
 	public String lastName;
+	
 	public String email;
 	
 	public Contact() {

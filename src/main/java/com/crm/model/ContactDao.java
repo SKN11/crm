@@ -45,6 +45,7 @@ public class ContactDao {
 			if(id == c.getId())
 			{
 				itr.remove();
+				
 			return c;	 
 			}
 			
