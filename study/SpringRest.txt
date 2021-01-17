@@ -1,0 +1,77 @@
+............Topic 1 :Static & Dynamic Filtering for RESTful Services.........
+It ignores the property for serialization & Deseraialization
+
+Static
+@JsonIgnore //applied on data variable
+@JsonIgnoreProperties({"name", "phone"})   //aplied on the class , name & phone is the data variable
+
+
+Dynamic
+put @@JsonFilter("SomeBeanFilter")  before the class name
+
+and
+
+@RequestMapping("/filtering")  
+public MappingJacksonValue retrieveSomeBean()  
+{  
+SomeBean someBean=new SomeBean("Amit", "9999999999","39000");  
+
+SimpleBeanPropertyFilter filter=SimpleBeanPropertyFilter.filterOutAllExcept("name", "salary");   //invoking static method filterOutAllExcept()  
+
+FilterProvider filters=new SimpleFilterProvider().addFilter("SomeBeanFilter",filter);   //creating filter using FilterProvider class  
+
+MappingJacksonValue mapping = new MappingJacksonValue(someBean);   //constructor of MappingJacksonValue class  that has bean as constructor argument  
+
+mapping.setFilters(filters);   //configuring filters  
+
+return mapping;  
+
+}  
+
+
+......................Topic 2:Versioning RESTful Web Services............
+URI Versioning....  //Twitter uses URI versioning.
+We differentiate service based on the Request URI
+@GetMapping("v1/person")  
+@GetMapping("v2/person")  
+
+Versioning using Custom Request Parametr....   // Amazon uses the request parameter versioning. 
+we differentiate service based on the Request Parameter
+URI http://localhost:8080/person/param?version=1
+URI http://localhost:8080/person/param?version=2
+
+handle this in your controller
+@GetMapping(value="/person/param", params="version=1")  
+@GetMapping(value="/person/param", params="version=2")  
+
+Versioning using Request Header...... //Microsoft uses the request header versioning
+we differentiate service based on the Request Header.
+@GetMapping(value="/person/header", headers="X-API-Version=1")  
+@GetMapping(value="/person/header", headers="X-API-Version=2")  
+
+send in header 
+key:X-API-Version  Value:1
+
+
+Versioning using Accept Header..... //Git Uses  uses the accept header versioning
+
+@GetMapping(value="/person/produces", produces="application/vnd.company.app-v1+json")  
+
+send in header
+key:Accept value:application/vnd.company.app-v1+json
+
+
+
+
+........................Topic 3: Basic Authentication Spring.................
+<dependency>  
+<groupId>org.springframework.boot</groupId>  
+<artifactId>spring-boot-starter-security</artifactId>  
+</dependency>  
+
+put
+spring.security.user.name=root  
+spring.security.user.password=root  
+in application.properties file
+
+go in auhorization tab in postman type root root
