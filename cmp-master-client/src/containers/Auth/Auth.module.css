@@ -1,0 +1,22 @@
+.Auth {
+    margin: 20px auto;
+    margin-top: 50px;
+    width: 80%;
+    text-align: center;
+    box-shadow: 0 5px 8px #ccc;
+    border: 1px solid #8F5C2C;
+    padding: 10px;
+    box-sizing: border-box;
+    
+}
+
+@media (min-width: 600px) {
+    .Auth {
+        width: 500px;
+    }
+}
+
+.loginheading{
+    text-align: center;
+    
+}
